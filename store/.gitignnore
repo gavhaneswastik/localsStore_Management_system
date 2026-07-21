@@ -1,0 +1,16 @@
+# Database (local data)
+store.db
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/

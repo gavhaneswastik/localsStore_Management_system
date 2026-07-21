@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Inventory & Restock{% endblock %}
+{% block content %}
+<h2>Inventory & Smart Restock Suggestions</h2>
+{% if suggestions %}
+<div class="alert alert-warning">
+    <strong>Items below reorder point:</strong>
+    <ul>
+    {% for s in suggestions %}
+        <li>{{ s.name }} – Stock: {{ s.current_stock }}, Forecast 7-day: {{ s.forecast_7day|round }}, Suggested Order: <b>{{ s.suggested_order }}</b></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}
+<table class="table">
+    <thead><tr><th>Product</th><th>Stock</th><th>Reorder Lvl</th><th>Quick Restock</th></tr></thead>
+    <tbody>
+    {% for p in products %}
+    <tr><td>{{ p.name }}</td><td>{{ p.stock }}</td><td>{{ p.reorder_level }}</td>
+        <td>
+            <form method="POST" action="/restock" class="row g-2">
+                <input type="hidden" name="product_id" value="{{ p.id }}">
+                <div class="col-auto"><input type="number" name="quantity" class="form-control" value="10" min="1"></div>
+                <div class="col-auto"><select name="vendor_id" class="form-select"><option value="2">GrainHouse</option><option value="1">FreshFarm</option><option value="3">GeneralSupplies</option></select></div>
+                <div class="col-auto"><input type="text" name="cost_per_unit" class="form-control" placeholder="Cost" value="{{ p.cost_price }}"></div>
+                <div class="col-auto"><button class="btn btn-primary">Restock</button></div>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Store Dashboard</h2>
+<div class="row">
+    <div class="col-md-3"><div class="card text-white bg-primary mb-3"><div class="card-body"><h5>Total Sales</h5><p class="card-text">₹{{ total_sales }}</p></div></div></div>
+    <div class="col-md-3"><div class="card text-white bg-success mb-3"><div class="card-body"><h5>Transactions</h5><p class="card-text">{{ sales_count }}</p></div></div></div>
+    <div class="col-md-3"><div class="card text-white bg-info mb-3"><div class="card-body"><h5>Customers</h5><p class="card-text">{{ cust_count }}</p></div></div></div>
+    <div class="col-md-3"><div class="card text-white bg-danger mb-3"><div class="card-body"><h5>Low Stock Items</h5><p class="card-text">{{ low_stock|length }}</p></div></div></div>
+</div>
+
+<h5>Products Status</h5>
+<table class="table table-striped">
+    <thead><tr><th>Product</th><th>Stock</th><th>Reorder Level</th></tr></thead>
+    <tbody>
+        {% for p in products %}
+        <tr class="{{ 'table-danger' if p.stock <= p.reorder_level else '' }}">
+            <td>{{ p.name }}</td><td>{{ p.stock }}</td><td>{{ p.reorder_level }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Basket Analysis{% endblock %}
+{% block content %}
+<h2>Frequently Bought Together</h2>
+<table class="table">
+    <thead><tr><th>Item Pair</th><th>Support</th><th>Confidence (1→2)</th><th>Confidence (2→1)</th></tr></thead>
+    <tbody>
+    {% for p in pairs %}
+    <tr>
+        <td>{{ p['items'] }}</td>                          <!-- ✅ use p['items'] -->
+        <td>{{ p.support }}</td>                          <!-- .support works because 'support' is not a reserved method -->
+        <td>{{ p['confidence_1->2'] }}</td>
+        <td>{{ p['confidence_2->1'] }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

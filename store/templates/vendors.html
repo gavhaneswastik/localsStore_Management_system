@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Vendor Performance{% endblock %}
+{% block content %}
+<h2>Vendor Scorecard</h2>
+<table class="table">
+    <thead><tr><th>Vendor</th><th>On-Time Delivery %</th><th>Fill Rate %</th><th>Quality Score (5)</th></tr></thead>
+    <tbody>
+    {% for v in vendors %}
+    <tr><td>{{ v.name }}</td><td>{{ v.on_time_pct }}%</td><td>{{ v.fill_rate }}%</td><td>{{ v.quality_score }}</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

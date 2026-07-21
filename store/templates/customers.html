@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Customers{% endblock %}
+{% block content %}
+<h2>Customer Segments (RFM)</h2>
+<table class="table table-bordered">
+    <thead><tr><th>Name</th><th>Recency (days)</th><th>Frequency</th><th>Monetary</th><th>Points</th><th>Segment</th></tr></thead>
+    <tbody>
+    {% for c in customers %}
+    <tr class="{% if c.segment == 'VIP' %}table-success{% elif c.segment == 'At Risk' %}table-danger{% endif %}">
+        <td>{{ c.name }}</td><td>{{ c.recency }}</td><td>{{ c.frequency }}</td><td>{{ c.monetary }}</td><td>{{ c.loyalty_points }}</td>
+        <td><span class="badge bg-{{ 'success' if c.segment=='VIP' else 'warning' if c.segment=='At Risk' else 'info' }}">{{ c.segment }}</span></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Record Sale{% endblock %}
+{% block content %}
+<h2>New Sale</h2>
+<form method="POST">
+    <div class="row">
+        <div class="col-md-3"><label>Date</label><input type="date" name="date" class="form-control" value="{{ now }}" required></div>
+        <div class="col-md-3"><label>Customer (optional)</label>
+            <select name="customer_id" class="form-select"><option value="">Walk-in</option>
+                {% for c in customers %}<option value="{{ c.id }}">{{ c.name }}</option>{% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3"><label>Payment</label>
+            <select name="payment_mode" class="form-select"><option>Cash</option><option>UPI</option><option>Card</option></select>
+        </div>
+    </div>
+    <hr>
+    <div id="items">
+        <div class="row item-row mb-2">
+            <div class="col-md-6"><select name="product_id" class="form-select product-select">{% for p in products %}<option value="{{ p.id }}">{{ p.name }} (Stock: {{ p.stock }})</option>{% endfor %}</select></div>
+            <div class="col-md-2"><input type="number" name="quantity" class="form-control" value="1" min="1"></div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-outline-primary mb-3" id="add-item">+ Add Item</button><br>
+    <button type="submit" class="btn btn-success">Complete Sale</button>
+</form>
+<script>
+    // Wait until the page is fully loaded
+    window.onload = function() {
+        var addBtn = document.getElementById('add-item');
+        if (!addBtn) {
+            console.error("Button '+Add Item' not found! Check id='add-item'");
+            return;
+        }
+        addBtn.onclick = function() {
+            var container = document.getElementById('items');
+            var firstRow = container.querySelector('.item-row');
+            if (!firstRow) return;
+            // Deep clone the row
+            var clone = firstRow.cloneNode(true);
+            // Reset quantity
+            var qtyInput = clone.querySelector('input[name="quantity"]');
+            if (qtyInput) qtyInput.value = '1';
+            // Reset dropdown to first option
+            var select = clone.querySelector('select[name="product_id"]');
+            if (select) select.selectedIndex = 0;
+            // Add to container
+            container.appendChild(clone);
+        };
+    };
+</script>
+{% endblock %}
