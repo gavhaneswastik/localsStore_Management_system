@@ -1,4 +1,4 @@
-# 📊 Low‑Level Store Management System
+# 📊 Local Store Management System
 
 A **data‑science‑powered** retail management application designed for **small local stores** (kirana, mom‑and‑pop shops).  
 It uses demand forecasting, customer segmentation, basket analysis, and vendor performance tracking to help the **store owner**, **customers**, and **suppliers** all benefit from a single smart system.
